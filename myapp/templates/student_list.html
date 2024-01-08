@@ -1,0 +1,7 @@
+<h2>Student List</h2>
+<ul>
+    {% for student in students %}
+        <li>{{ student.name }} (Roll: {{ student.roll }}, City: {{ student.city }})</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'student_create' %}">Add Student</a>

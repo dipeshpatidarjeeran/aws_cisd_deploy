@@ -1,0 +1,68 @@
+version: '3'
+
+services:
+  # Django application service
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: python manage.py runserver 0.0.0.0:8000
+    # volumes:
+    #   - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      DEBUG: "True"
+      DJANGO_DB_HOST: db
+      DJANGO_DB_PORT: 5432
+      DJANGO_DB_NAME: mydb
+      DJANGO_DB_USER: postgres
+      DJANGO_DB_PASSWORD: psql
+
+  # PostgreSQL database service
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: mydb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: psql
+    # volumes:
+    #   - postgres_data:/var/lib/postgresql/data
+
+# volumes:
+#   postgres_data:
+
+
+
+
+# version: '3'
+
+# services:
+#   # Django application container
+#   web:
+#     image: cicd_django_image  # Replace with the name of your Django Docker image
+#     container_name: cicd_django_container
+#     ports:
+#       - "8000:8000"
+#     depends_on:
+#       - db
+#     environment:
+#       - DEBUG=True
+#     # volumes:
+#     #   - ./my_django_app:/app  # Replace with the path to your Django app code
+
+#   # PostgreSQL database container
+#   db:
+#     image: cicd_django_postgres_image
+#     container_name: cicd_django_postgres_container
+#     environment:
+#       POSTGRES_USER: postgres
+#       POSTGRES_PASSWORD: postgres
+#       POSTGRES_DB: mydb
+#     volumes:
+#       - postgres_data:/var/lib/postgresql/data
+
+# volumes:
+#   postgres_data:
