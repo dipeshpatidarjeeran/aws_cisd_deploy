@@ -16,8 +16,12 @@ RUN pip install -r requirements.txt
 
 # Expose the port your application will run on
 EXPOSE 8000
-# RUN python manage.py makemigrations
-# RUN python manage.py migrate
 
-# Define the command to run your application
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Copy the entrypoint script into the container
+COPY entrypoint.sh /app/
+
+# Make the entrypoint script executable
+RUN chmod +x /app/entrypoint.sh
+
+# Set the entrypoint to the script
+ENTRYPOINT ["/app/entrypoint.sh"]
